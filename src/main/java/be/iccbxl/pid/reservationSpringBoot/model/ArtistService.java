@@ -1,4 +1,4 @@
-package be.iccbxl.pid.model;
+package be.iccbxl.pid.reservationSpringBoot.model;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

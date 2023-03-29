@@ -1,7 +1,7 @@
-package be.iccbxl.pid.controller;
+package be.iccbxl.pid.reservationSpringBoot.controller;
 
-import be.iccbxl.pid.model.Artist;
-import be.iccbxl.pid.model.ArtistService;
+import be.iccbxl.pid.reservationSpringBoot.model.Artist;
+import be.iccbxl.pid.reservationSpringBoot.model.ArtistService;
 import org.springframework.ui.Model;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

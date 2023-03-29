@@ -1,4 +1,4 @@
-package be.iccbxl.pid.model;
+package be.iccbxl.pid.reservationSpringBoot.model;
 
 import org.springframework.data.repository.CrudRepository;
 

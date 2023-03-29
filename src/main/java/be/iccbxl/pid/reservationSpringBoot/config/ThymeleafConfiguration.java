@@ -1,4 +1,4 @@
-package be.iccbxl.pid.config;
+package be.iccbxl.pid.reservationSpringBoot.config;
 
 
 import nz.net.ultraq.thymeleaf.layoutdialect.LayoutDialect;
