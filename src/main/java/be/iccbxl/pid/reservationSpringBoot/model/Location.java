@@ -49,12 +49,58 @@ public class Location {
     }
 
 
+    public String getDesignation() {
+        return designation;
+    }
+
+    public void setDesignation(String designation) {
+        this.designation = designation;
+
+        Slugify slg = new Slugify();
+
+        this.setSlug(slg.slugify(designation));
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     public Locality getLocality() {
-        return this.locality;
+        return locality;
     }
 
     public void setLocality(Locality locality) {
+        this.locality.removeLocation(this);	//déménager de l’ancienne localité
         this.locality = locality;
+        this.locality.addLocation(this);		//emménager dans la nouvelle localité
+    }
+
+    public String getWebsite() {
+        return website;
+    }
+
+    public void setWebsite(String website) {
+        this.website = website;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    @Override
+    public String toString() {
+        return "Location [id=" + id + ", slug=" + slug + ", designation=" + designation
+                + ", address=" + address	+ ", locality=" + locality + ", website="
+                + website + ", phone=" + phone + "]";
     }
 }
+
 

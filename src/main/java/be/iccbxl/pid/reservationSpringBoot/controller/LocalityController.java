@@ -3,12 +3,13 @@ package be.iccbxl.pid.reservationSpringBoot.controller;
 import be.iccbxl.pid.reservationSpringBoot.model.Locality;
 import be.iccbxl.pid.reservationSpringBoot.model.LocalityService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
-
+@Controller
 public class LocalityController {
     @Autowired
     LocalityService service;
