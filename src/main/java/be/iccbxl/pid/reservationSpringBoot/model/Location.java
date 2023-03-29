@@ -3,6 +3,9 @@ package be.iccbxl.pid.reservationSpringBoot.model;
 import com.github.slugify.Slugify;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name="locations")
 public class Location {
@@ -19,6 +22,10 @@ public class Location {
     @ManyToOne
     @JoinColumn(name = "locality_id", nullable = false)
     private Locality locality;
+
+    @OneToMany(targetEntity=Show.class, mappedBy="location")
+    private List<Show> shows = new ArrayList<>();
+
 
     private String website;
     private String phone;
@@ -95,12 +102,38 @@ public class Location {
         this.phone = phone;
     }
 
+    public List<Show> getShows() {
+        return shows;
+    }
+
+    public Location addShow(Show show) {
+        if(!this.shows.contains(show)) {
+            this.shows.add(show);
+            show.setLocation(this);
+        }
+
+        return this;
+    }
+
+    public Location removeShow(Show show) {
+        if(this.shows.contains(show)) {
+            this.shows.remove(show);
+            if(show.getLocation().equals(this)) {
+                show.setLocation(null);
+            }
+        }
+
+        return this;
+    }
+
+
     @Override
     public String toString() {
         return "Location [id=" + id + ", slug=" + slug + ", designation=" + designation
                 + ", address=" + address	+ ", locality=" + locality + ", website="
-                + website + ", phone=" + phone + "]";
+                + website + ", phone=" + phone + ", shows=" + shows.size() + "]";
     }
+
 }
 
 
