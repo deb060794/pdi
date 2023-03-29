@@ -2,12 +2,19 @@ package be.iccbxl.pid.reservationSpringBoot.model;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name="localities")
 public class Locality {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
+
+    @OneToMany( targetEntity=Location.class, mappedBy="locality" )
+    private List<Location> locations = new ArrayList<>();
+
     private String postalCode;
     private String locality;
 
@@ -42,6 +49,35 @@ public class Locality {
     public String toString() {
         return "Locality [id=" + id + ", postalCode=" + postalCode + ", locality=" + locality + "]";
     }
+    public List<Location> getLocations() {
+        return locations;
+    }
+
+    public Locality addLocation(Location location) {
+        if(!this.locations.contains(location)) {
+            this.locations.add(location);
+            location.setLocality(this);
+        }
+
+        return this;
+    }
+
+    public Locality removeLocation(Location location) {
+        if(this.locations.contains(location)) {
+            this.locations.remove(location);
+            if(location.getLocality().equals(this)) {
+                location.setLocality(null);
+            }
+        }
+
+        return this;
+    }
+
+
+
+
+
+
 
 }
 
