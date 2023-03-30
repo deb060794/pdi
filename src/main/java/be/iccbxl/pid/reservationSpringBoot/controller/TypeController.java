@@ -29,8 +29,8 @@ public class TypeController {
     @GetMapping("/types/{id}")
     public String show(Model model, @PathVariable("id") String id) {
         Optional<Type> type = service.get(id);
-
-        model.addAttribute("type", type);
+        Type ty = type.orElse(null);
+        model.addAttribute("type", ty);
         model.addAttribute("title", "Fiche d'un type");
 
         return "type/show";
