@@ -51,6 +51,10 @@ public class Show {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
+    @ManyToMany(mappedBy = "shows")
+    private List<ArtistType> artistTypes = new ArrayList<>();
+
+
     public Show() {
     }
 
@@ -179,6 +183,28 @@ public class Show {
                 + ", representations=" + representations.size() + "]";
     }
 
+
+    public List<ArtistType> getArtistTypes() {
+        return artistTypes;
+    }
+
+    public Show addArtistType(ArtistType artistType) {
+        if(!this.artistTypes.contains(artistType)) {
+            this.artistTypes.add(artistType);
+            artistType.addShow(this);
+        }
+
+        return this;
+    }
+
+    public Show removeArtistType(ArtistType artistType) {
+        if(this.artistTypes.contains(artistType)) {
+            this.artistTypes.remove(artistType);
+            artistType.getShows().remove(this);
+        }
+
+        return this;
+    }
 
 }
 
