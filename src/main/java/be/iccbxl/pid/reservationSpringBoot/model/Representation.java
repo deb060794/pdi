@@ -3,6 +3,8 @@ package be.iccbxl.pid.reservationSpringBoot.model;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name="representations")
@@ -10,6 +12,14 @@ public class Representation {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
+
+    @ManyToMany
+    @JoinTable(
+            name = "reservations",
+            joinColumns = @JoinColumn(name = "representation_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private List<User> users = new ArrayList<>();
+
 
     @ManyToOne
     @JoinColumn(name="show_id", nullable=false)
@@ -62,6 +72,29 @@ public class Representation {
     public Long getId() {
         return id;
     }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public Representation addUser(User user) {
+        if(!this.users.contains(user)) {
+            this.users.add(user);
+            user.addRepresentation(this);
+        }
+
+        return this;
+    }
+
+    public Representation removeUser(User user) {
+        if(this.users.contains(user)) {
+            this.users.remove(user);
+            user.getRepresentations().remove(this);
+        }
+
+        return this;
+    }
+
 
     @Override
     public String toString() {
